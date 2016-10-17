@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>dragPitch</title>
+    </head>
+    <body>
+        <input id="pitch" type="range" min="0" max="10000" name="pitch" value="0">
+        <span class="l">0</span>
+        <span class="r">10000</span>
+        <input id="info" type="number" name="number" value="0" disabled="">
+        <input type="radio" value="square" id="square" name="oscillatorType" checked="checked" /><label for="square">square</label>
+        <input type="radio" value="sine" id="sine" name="oscillatorType" /><label for="sine">sine</label>
+        <input type="radio" value="sawtooth" id="sawtooth" name="oscillatorType" /><label for="sawtooth">sawtooth</label>
+        <input type="radio" value="triangle" id="triangle" name="oscillatorType" /><label for="triangle">triangle</label>
+        <script>
+            const aC = new AudioContext()
+            const o = aC.createOscillator()
+            const g = aC.createGain();
+            o.connect(g)
+            g.connect(aC.destination);
+            g.gain.value = 0.05
+            o.type = "square"
+            o.frequency.value = 0
+            o.start()
+
+            const infoNumber = document.getElementById('info')
+
+            document.getElementById('pitch').addEventListener('input', function () {
+                o.frequency.value = this.value
+                infoNumber.value = this.value
+            })
+            document.querySelectorAll('input[type=radio]').forEach(r => r.addEventListener('click', function () {
+                console.log(this)
+                o.type = this.value
+            }))
+    </script>
+    <style>
+        body {
+            text-align: center;
+        }
+        #pitch {
+            width: 100%;
+        }
+        .l { float: left; }
+        .r { float:right; }
+        #info {
+            display: inline;
+        }
+    </style>
+    </body>
+</html>
