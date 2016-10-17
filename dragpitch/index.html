@@ -33,10 +33,10 @@
                 infoNumber.value = this.value
             })
 
-            document.querySelectorAll('input[type=radio]').forEach(r => r.addEventListener('click', function () {
-                console.log(this)
-                o.type = this.value
-            }))
+            document.querySelectorAll('input[type=radio]')
+                .forEach(r =>
+                    r.addEventListener('click', function () { o.type = this.value })
+                )
     </script>
     <style>
         body { text-align: center; }
